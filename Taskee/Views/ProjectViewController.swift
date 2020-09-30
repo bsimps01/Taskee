@@ -18,7 +18,8 @@ class ProjectViewController: UIViewController {
         return table
     }()
     
-
+    var coreDataStack = CoreDataStack()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -56,7 +57,7 @@ class ProjectViewController: UIViewController {
 
 extension ProjectViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        project.count
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
