@@ -8,14 +8,14 @@
 import Foundation
 import UIKit
 
-class TaskCell: UITableViewCell {
-    static var identifier = "TaskCell"
+class ProjectCell: UITableViewCell {
+    static var identifier = "ProjectCell"
     
     let taskTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Times New Roman", size: 21)
-        label.textColor = .systemBlue
+        label.textColor = .systemGreen
         return label
     }()
     
@@ -27,18 +27,18 @@ class TaskCell: UITableViewCell {
         return label
     }()
     
-    let colorSelection: UIView = {
-        let view = UIView()
+    let imageSection: UIImageView = {
+        let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = view.frame.size.width/2
         return view
     }()
     
-    init(color: String, title: String, tasks: Int) {
-        super.init(style: .default, reuseIdentifier: "TaskCell")
+    init(image: String, title: String, tasks: Int) {
+        super.init(style: .default, reuseIdentifier: "ProjectCell")
         taskTitle.text = title
         taskLabel.text = "\(tasks) tasks to do"
-        colorSelection.backgroundColor = UIColor(named: color)
+        imageSection.image = UIImage(named: image)
     }
     
     required init?(coder: NSCoder) {
@@ -57,22 +57,22 @@ class TaskCell: UITableViewCell {
     func configureTaskView(){
         contentView.addSubview(taskTitle)
         contentView.addSubview(taskLabel)
-        contentView.addSubview(colorSelection)
+        contentView.addSubview(imageSection)
         
         NSLayoutConstraint.activate([
-            taskTitle.leadingAnchor.constraint(equalTo: colorSelection.leadingAnchor, constant: 10),
+            taskTitle.leadingAnchor.constraint(equalTo: imageSection.leadingAnchor, constant: 10),
             taskTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             taskTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             taskTitle.heightAnchor.constraint(equalToConstant: contentView.frame.height/2),
             
             taskLabel.topAnchor.constraint(equalTo: taskTitle.bottomAnchor, constant: 5),
-            taskLabel.leadingAnchor.constraint(equalTo: colorSelection.trailingAnchor, constant: 10),
+            taskLabel.leadingAnchor.constraint(equalTo: imageSection.trailingAnchor, constant: 10),
             taskLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 10),
             
-            colorSelection.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            colorSelection.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            colorSelection.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 10),
-            colorSelection.widthAnchor.constraint(equalToConstant: 50),
+            imageSection.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            imageSection.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            imageSection.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 10),
+            imageSection.widthAnchor.constraint(equalToConstant: 50),
         
         ])
     }

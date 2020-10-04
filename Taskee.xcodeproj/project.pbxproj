@@ -3,12 +3,19 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1BB98F0E2522BB77009F6185 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB98F0D2522BB77009F6185 /* TaskCell.swift */; };
+		1BB98F0E2522BB77009F6185 /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB98F0D2522BB77009F6185 /* ProjectCell.swift */; };
 		1BB98F132522F0D3009F6185 /* AddNewTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB98F122522F0D3009F6185 /* AddNewTaskViewController.swift */; };
+		1BB98F182523A40C009F6185 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB98F172523A40C009F6185 /* CoreDataStack.swift */; };
+		1BB98F272523E571009F6185 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 1BB98F262523E571009F6185 /* Toast */; };
+		1BB98F3425251995009F6185 /* Tasks+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB98F3325251995009F6185 /* Tasks+CoreDataProperties.swift */; };
+		1BB98F39252519E1009F6185 /* Projects+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB98F38252519E1009F6185 /* Projects+CoreDataClass.swift */; };
+		1BB98F4125253239009F6185 /* ImageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB98F4025253239009F6185 /* ImageLayout.swift */; };
+		1BB98FF52529313D009F6185 /* Tasks+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB98FF42529313D009F6185 /* Tasks+CoreDataClass.swift */; };
+		1BB9900325293409009F6185 /* Projects+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB9900225293409009F6185 /* Projects+CoreDataProperties.swift */; };
 		1BD61B8D251D5AD200880222 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD61B8C251D5AD200880222 /* AppDelegate.swift */; };
 		1BD61B8F251D5AD200880222 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD61B8E251D5AD200880222 /* SceneDelegate.swift */; };
 		1BD61B91251D5AD200880222 /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD61B90251D5AD200880222 /* ProjectViewController.swift */; };
@@ -38,8 +45,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1BB98F0D2522BB77009F6185 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
+		1BB98F0D2522BB77009F6185 /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
 		1BB98F122522F0D3009F6185 /* AddNewTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTaskViewController.swift; sourceTree = "<group>"; };
+		1BB98F172523A40C009F6185 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		1BB98F3325251995009F6185 /* Tasks+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tasks+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1BB98F38252519E1009F6185 /* Projects+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Projects+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1BB98F4025253239009F6185 /* ImageLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLayout.swift; sourceTree = "<group>"; };
+		1BB98FF42529313D009F6185 /* Tasks+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tasks+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1BB9900225293409009F6185 /* Projects+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Projects+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1BD61B89251D5AD200880222 /* Taskee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Taskee.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BD61B8C251D5AD200880222 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1BD61B8E251D5AD200880222 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BB98F272523E571009F6185 /* Toast in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +96,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1BB98F2B2523EB5A009F6185 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1BD61B90251D5AD200880222 /* ProjectViewController.swift */,
+				1BB98F122522F0D3009F6185 /* AddNewTaskViewController.swift */,
+				1BB98F4025253239009F6185 /* ImageLayout.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1BB98F2F2523EBB6009F6185 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				1BB98FF42529313D009F6185 /* Tasks+CoreDataClass.swift */,
+				1BB98F3325251995009F6185 /* Tasks+CoreDataProperties.swift */,
+				1BB98F38252519E1009F6185 /* Projects+CoreDataClass.swift */,
+				1BD61B95251D5AD200880222 /* Taskee.xcdatamodeld */,
+				1BB9900225293409009F6185 /* Projects+CoreDataProperties.swift */,
+				1BB98F172523A40C009F6185 /* CoreDataStack.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		1BD61B80251D5AD200880222 = {
 			isa = PBXGroup;
 			children = (
@@ -107,14 +144,13 @@
 			children = (
 				1BD61B8C251D5AD200880222 /* AppDelegate.swift */,
 				1BD61B8E251D5AD200880222 /* SceneDelegate.swift */,
-				1BD61B90251D5AD200880222 /* ProjectViewController.swift */,
-				1BB98F122522F0D3009F6185 /* AddNewTaskViewController.swift */,
-				1BB98F0D2522BB77009F6185 /* TaskCell.swift */,
+				1BB98F2F2523EBB6009F6185 /* CoreData */,
+				1BB98F2B2523EB5A009F6185 /* Views */,
+				1BB98F0D2522BB77009F6185 /* ProjectCell.swift */,
 				1BD61B92251D5AD200880222 /* Main.storyboard */,
 				1BD61B98251D5AD500880222 /* Assets.xcassets */,
 				1BD61B9A251D5AD500880222 /* LaunchScreen.storyboard */,
 				1BD61B9D251D5AD500880222 /* Info.plist */,
-				1BD61B95251D5AD200880222 /* Taskee.xcdatamodeld */,
 			);
 			path = Taskee;
 			sourceTree = "<group>";
@@ -153,6 +189,9 @@
 			dependencies = (
 			);
 			name = Taskee;
+			packageProductDependencies = (
+				1BB98F262523E571009F6185 /* Toast */,
+			);
 			productName = Taskee;
 			productReference = 1BD61B89251D5AD200880222 /* Taskee.app */;
 			productType = "com.apple.product-type.application";
@@ -224,6 +263,9 @@
 				Base,
 			);
 			mainGroup = 1BD61B80251D5AD200880222;
+			packageReferences = (
+				1BB98F252523E570009F6185 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+			);
 			productRefGroup = 1BD61B8A251D5AD200880222 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -267,12 +309,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BB98F182523A40C009F6185 /* CoreDataStack.swift in Sources */,
 				1BD61B97251D5AD200880222 /* Taskee.xcdatamodeld in Sources */,
 				1BD61B91251D5AD200880222 /* ProjectViewController.swift in Sources */,
+				1BB98F39252519E1009F6185 /* Projects+CoreDataClass.swift in Sources */,
+				1BB98F3425251995009F6185 /* Tasks+CoreDataProperties.swift in Sources */,
 				1BD61B8D251D5AD200880222 /* AppDelegate.swift in Sources */,
 				1BD61B8F251D5AD200880222 /* SceneDelegate.swift in Sources */,
 				1BB98F132522F0D3009F6185 /* AddNewTaskViewController.swift in Sources */,
-				1BB98F0E2522BB77009F6185 /* TaskCell.swift in Sources */,
+				1BB98FF52529313D009F6185 /* Tasks+CoreDataClass.swift in Sources */,
+				1BB98F0E2522BB77009F6185 /* ProjectCell.swift in Sources */,
+				1BB9900325293409009F6185 /* Projects+CoreDataProperties.swift in Sources */,
+				1BB98F4125253239009F6185 /* ImageLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,6 +653,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1BB98F252523E570009F6185 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1BB98F262523E571009F6185 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1BB98F252523E570009F6185 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		1BD61B95251D5AD200880222 /* Taskee.xcdatamodeld */ = {
