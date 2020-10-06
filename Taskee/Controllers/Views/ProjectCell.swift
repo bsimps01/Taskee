@@ -11,7 +11,7 @@ import UIKit
 class ProjectCell: UITableViewCell {
     static var identifier = "ProjectCell"
     
-    let taskTitle: UILabel = {
+    let projectTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Times New Roman", size: 21)
@@ -36,7 +36,7 @@ class ProjectCell: UITableViewCell {
     
     init(image: String, title: String, tasks: Int) {
         super.init(style: .default, reuseIdentifier: "ProjectCell")
-        taskTitle.text = title
+        projectTitle.text = title
         taskLabel.text = "\(tasks) tasks to do"
         imageSection.image = UIImage(named: image)
     }
@@ -60,10 +60,10 @@ class ProjectCell: UITableViewCell {
         contentView.addSubview(imageSection)
         
         NSLayoutConstraint.activate([
-            taskTitle.leadingAnchor.constraint(equalTo: imageSection.leadingAnchor, constant: 10),
-            taskTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            taskTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            taskTitle.heightAnchor.constraint(equalToConstant: contentView.frame.height/2),
+            projectTitle.leadingAnchor.constraint(equalTo: imageSection.leadingAnchor, constant: 10),
+            projectTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            projectTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            projectTitle.heightAnchor.constraint(equalToConstant: contentView.frame.height/2),
             
             taskLabel.topAnchor.constraint(equalTo: taskTitle.bottomAnchor, constant: 5),
             taskLabel.leadingAnchor.constraint(equalTo: imageSection.trailingAnchor, constant: 10),
