@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit.UIColor
 
 
 extension Project {
@@ -16,12 +17,13 @@ extension Project {
         return NSFetchRequest<Project>(entityName: "Project")
     }
 
-    @NSManaged public var image: NSObject?
+    @NSManaged public var color: UIColor?
     @NSManaged public var title: String?
-    @NSManaged public var tasks: Task?
+    @NSManaged public var tasks: NSSet?
 
 }
 
+// MARK: Generated accessors for tasks
 extension Project {
 
     @objc(addTasksObject:)
@@ -35,5 +37,9 @@ extension Project {
 
     @objc(removeTasks:)
     @NSManaged public func removeFromTasks(_ values: NSSet)
+
+}
+
+extension Project : Identifiable {
 
 }

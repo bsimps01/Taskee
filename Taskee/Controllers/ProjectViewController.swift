@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import Toast
 
 class ProjectViewController: UIViewController {
     
@@ -21,6 +22,8 @@ class ProjectViewController: UIViewController {
     }()
     
     var coreDataStack = CoreDataStack()
+    
+    var notify = ToastStyle()
     
     lazy var fetchedResultsController: NSFetchedResultsController<Project> = {
         let fetchRequest: NSFetchRequest<Project> = Project.fetchRequest()
@@ -38,7 +41,7 @@ class ProjectViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.title = "Projects"
         navigationController?.navigationBar.prefersLargeTitles = true
-        self.view.backgroundColor = .systemGray
+        self.view.backgroundColor = .white
         navigationItem.leftBarButtonItem = editButtonItem
         displayTable()
         addButton()
@@ -116,10 +119,6 @@ class ProjectViewController: UIViewController {
     }
 }
 
-extension ProjectViewController{
-
-}
-
 extension ProjectViewController: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -154,8 +153,28 @@ extension ProjectViewController: UITableViewDelegate, UITableViewDataSource{
             let project = fetchedResultsController.object(at: indexPath)
             vc.coreDataStack = coreDataStack
             vc.projectTitle = cell.projectTitle.text ?? ""
-            vc.theProject = project
+            vc.projectSpecs = project
+            notify.messageColor = .white
+            self.view.makeToast("You made a new Project", duration: 3.0, position: .bottom, style: notify)
             navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    private func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+          return true
+    }
+    
+    override func setEditing(_ editing: Bool, animated: Bool){
+        super.setEditing(editing, animated: animated)
+        tableView.setEditing(editing, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            coreDataStack.managedContext.delete(fetchedResultsController.object(at: indexPath))
+            coreDataStack.saveContext()
+            notify.messageColor = .white
+            self.view.makeToast("Your project has been deleted!", duration: 3.0, position: .bottom, style: notify)
         }
     }
     
@@ -172,7 +191,6 @@ extension ProjectViewController: NSFetchedResultsControllerDelegate{
                     at indexPath: IndexPath?,
                     for type: NSFetchedResultsChangeType,
                     newIndexPath: IndexPath?) {
-      
       switch type {
       case .insert:
         tableView.insertRows(at: [newIndexPath!], with: .automatic)
@@ -199,10 +217,10 @@ extension ProjectViewController{
         let project = fetchedResultsController.object(at: indexPath)
         
         cell.projectTitle.text = project.title
-        if let imageSection = project.image {
-            cell.imageSection.image = project.image as? UIImage
+        if let colorSection = project.color {
+            cell.colorSection.backgroundColor = colorSection
         } else {
-            cell.imageSection.image = nil
+            cell.colorSection.backgroundColor = nil
         }
         
         guard let tasks = project.tasks else { return }

@@ -14,8 +14,8 @@ class ProjectCell: UITableViewCell {
     let projectTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "Times New Roman", size: 21)
-        label.textColor = .systemGreen
+        label.font = UIFont(name: "Futura", size: 21)
+        //label.textColor = .systemGreen
         return label
     }()
     
@@ -27,22 +27,32 @@ class ProjectCell: UITableViewCell {
         return label
     }()
     
-    let imageSection: UIImageView = {
-        let view = UIImageView()
+    let colorSection: UIView = {
+        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = view.frame.size.width/2
         return view
     }()
     
-    init(image: String, title: String, tasks: Int) {
+    init(color: String, title: String, tasks: Int) {
         super.init(style: .default, reuseIdentifier: "ProjectCell")
         projectTitle.text = title
         taskLabel.text = "\(tasks) tasks to do"
-        imageSection.image = UIImage(named: image)
+        colorSection.backgroundColor = UIColor(named: color)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
+    }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
@@ -55,25 +65,23 @@ class ProjectCell: UITableViewCell {
     }
     
     func configureTaskView(){
-        contentView.addSubview(taskTitle)
+        contentView.addSubview(projectTitle)
         contentView.addSubview(taskLabel)
-        contentView.addSubview(imageSection)
+        contentView.addSubview(colorSection)
         
-        NSLayoutConstraint.activate([
-            projectTitle.leadingAnchor.constraint(equalTo: imageSection.leadingAnchor, constant: 10),
-            projectTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            projectTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            projectTitle.heightAnchor.constraint(equalToConstant: contentView.frame.height/2),
+        projectTitle.leadingAnchor.constraint(equalTo: colorSection.leadingAnchor, constant: 70).isActive = true
+        projectTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+        projectTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
+        projectTitle.heightAnchor.constraint(equalToConstant: contentView.frame.height/2).isActive = true
             
-            taskLabel.topAnchor.constraint(equalTo: taskTitle.bottomAnchor, constant: 5),
-            taskLabel.leadingAnchor.constraint(equalTo: imageSection.trailingAnchor, constant: 10),
-            taskLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 10),
+        taskLabel.topAnchor.constraint(equalTo: projectTitle.bottomAnchor, constant: 5).isActive = true
+        taskLabel.leadingAnchor.constraint(equalTo: colorSection.trailingAnchor, constant: 70).isActive = true
+        taskLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 10).isActive = true
             
-            imageSection.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            imageSection.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            imageSection.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 10),
-            imageSection.widthAnchor.constraint(equalToConstant: 50),
-        
-        ])
+        colorSection.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5).isActive = true
+        colorSection.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
+        colorSection.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        colorSection.widthAnchor.constraint(equalToConstant: 50).isActive = true
+    
     }
 }

@@ -8,18 +8,19 @@
 import Foundation
 import UIKit
 import CoreData
+import Toast
 
 
 class AddNewProjectViewController: UIViewController {
     
     var coreDataStack: CoreDataStack?
     var project: Project?
-    var imageName: String = ""
+    var confirmColor: UIColor? = .systemBackground
     var delegate: ProjectEntryDelegate?
     var childContext: NSManagedObjectContext!
-    
-    var imageNames: [String] = ["school", "gift", "pray", "trip", "working", "home", "shopping", "health", "lifting"]
-    var images: [UIImage] = [UIImage(named: "school")!, UIImage(named: "gift")!, UIImage(named: "health")!, UIImage(named: "home")!, UIImage(named: "lifting")!, UIImage(named: "pray")!, UIImage(named: "shopping")!, UIImage(named: "trip")!, UIImage(named: "working")!]
+    var notify = ToastStyle()
+
+    let colors: [UIColor] = [.black, .blue, .yellow, .gray, .red, .brown, .green, .orange, .purple]
     
     let titleText: UITextField = {
         let text = UITextField()
@@ -32,16 +33,16 @@ class AddNewProjectViewController: UIViewController {
         return text
     }()
     
-    let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+    //let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
     
     lazy var collectionView: UICollectionView = {
-        let iv = ImageLayout()
+        let iv = ColorLayout()
         let collectionView = UICollectionView(frame: CGRect(x: 0, y: 200, width: view.bounds.width, height: view.bounds.height), collectionViewLayout: iv)
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.alwaysBounceVertical = true
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.backgroundColor = .yellow
+        collectionView.backgroundColor = .white
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "ImageCell")
         return collectionView
     }()
@@ -54,13 +55,18 @@ class AddNewProjectViewController: UIViewController {
         self.view.backgroundColor = .systemBackground
         self.title = "New/Edit Project"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
+
         setup()
         
         configuration()
         
         //setupLeftImage(imageName: "pray")
+
+
         
     }
+    
+
     
     func setup(){
         self.view.addSubview(titleText)
@@ -79,40 +85,41 @@ class AddNewProjectViewController: UIViewController {
     }
     
     fileprivate func configuration() {
+        
         guard let project = project else { return }
         titleText.text = project.title
         
-        guard let image = project.image else { return }
+        guard let color = project.color else { return }
         
-        imageSelection = image as? UIImage
-        
-        self.imageView.image = imageSelection
+        confirmColor = color
+        view.backgroundColor = confirmColor
         
     }
     
     @objc func save(){
-        //        if project == nil{
-        //            let newProject = Projects(context: coreDataStack!.managedContext)
-        //            newProject.title = titleText.text
-        //            newProject.image = imageName
-        //            coreDataStack?.saveContext()
-        //        }else{
-        project?.title = titleText.text
-        project?.image = imageName as NSObject
-        //            coreDataStack?.saveContext()
-        delegate?.didSaveProject(vc: self, didSave: true)
-        //        }
-        //        self.navigationController?.popViewController(animated: true)
+        if project == nil{
+            let newProject = Project(context: coreDataStack!.managedContext)
+            newProject.title = titleText.text
+            newProject.color = confirmColor
+            coreDataStack?.saveContext()
+        }else{
+            project?.title = titleText.text
+            project?.color = confirmColor
+            coreDataStack?.saveContext()
+        }
+        notify.messageColor = .white
+        self.view.makeToast("You made a new Project", duration: 3.0, position: .bottom, style: notify)
+        self.navigationController?.popViewController(animated: true)
     }
     
-    func setupLeftImage(imageName: String){
-        imageView.image = UIImage(named: imageName)!
-        //        let imageContainerView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 55, height: 40))
-        //        imageContainerView.addSubview(imageView)
-        titleText.leftView = imageView
-        titleText.leftViewMode = .always
-        titleText.tintColor = .lightGray
-    }
+//    func setupLeftImage(imageName: String){
+//        imageView.image = UIImage(named: imageName)!
+//              let imageContainerView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 55, height: 40))
+//               imageContainerView.addSubview(imageView)
+//        titleText.leftView = imageView
+//        titleText.leftViewMode = .always
+//        titleText.tintColor = .lightGray
+//    }
     
     
     
@@ -121,7 +128,7 @@ class AddNewProjectViewController: UIViewController {
 
 extension AddNewProjectViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        imageNames.count
+        colors.count
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -130,27 +137,25 @@ extension AddNewProjectViewController: UICollectionViewDelegate, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath)
-        let imageName = imageNames[indexPath.row]
-        let imageview = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        imageview.image = UIImage(named: imageName)!
-        cell.contentView.addSubview(imageview)
-        cell.layer.cornerRadius = 20
-        cell.clipsToBounds = true
+        cell.backgroundColor = colors[indexPath.row]
+        cell.layer.cornerRadius = cell.frame.size.width/2
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
-        cell?.layer.borderColor = UIColor.blue.cgColor
-        cell?.layer.borderWidth = 2
-        imageName = imageNames[indexPath.row]
+        let cyan = UIColor.cyan
+        cell?.isSelected = true
+        cell?.layer.borderColor = cyan.cgColor
+        cell?.layer.borderWidth = 5
+        confirmColor = colors[indexPath.row]
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) {
-            cell.layer.borderColor = UIColor.yellow.cgColor
-            cell.layer.borderWidth = 2
-        }
+        let cell = collectionView.cellForItem(at: indexPath)
+        let clear = UIColor.clear
+        cell?.isSelected = false
+        cell?.layer.borderColor = clear.cgColor
     }
 }
 
