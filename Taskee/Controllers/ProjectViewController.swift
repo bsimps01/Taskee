@@ -66,7 +66,7 @@ class ProjectViewController: UIViewController {
         self.view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = .systemGreen
+        tableView.backgroundColor = .systemGray6
         tableView.rowHeight = 100
         
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
